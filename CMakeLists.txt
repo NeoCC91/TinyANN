@@ -3,4 +3,8 @@ project(TinyANN)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(TinyANN main.cpp)
+include_directories(include)
+aux_source_directory(src SRCLIST)
+
+add_executable(TinyANN main.cpp
+        ${SRCLIST})
