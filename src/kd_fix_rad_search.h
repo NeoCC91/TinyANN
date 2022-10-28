@@ -25,11 +25,11 @@
 #ifndef ANN_kd_fix_rad_search_H
 #define ANN_kd_fix_rad_search_H
 
-#include "kd_tree.h"					// kd-tree declarations
-#include "kd_util.h"					// kd-tree utilities
-#include "pr_queue_k.h"					// k-element priority queue
+#include "kd_tree.h"                    // kd-tree declarations
+#include "kd_util.h"                    // kd-tree utilities
+#include "pr_queue_k.h"                    // k-element priority queue
 
-#include <ANN/ANNperf.h>				// performance evaluation
+#include <ANN/ANNperf.h>                // performance evaluation
 
 //----------------------------------------------------------------------
 //	Global variables
@@ -39,6 +39,6 @@
 //		procedures.
 //----------------------------------------------------------------------
 
-extern ANNpoint			ANNkdFRQ;			// query point (static copy)
+extern ANNpoint ANNkdFRQ;            // query point (static copy)
 
 #endif

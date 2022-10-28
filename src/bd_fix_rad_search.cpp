@@ -22,8 +22,8 @@
 //		Initial release
 //----------------------------------------------------------------------
 
-#include "bd_tree.h"					// bd-tree declarations
-#include "kd_fix_rad_search.h"			// kd-tree FR search declarations
+#include "bd_tree.h"                    // bd-tree declarations
+#include "kd_fix_rad_search.h"            // kd-tree FR search declarations
 
 //----------------------------------------------------------------------
 //	Approximate searching for bd-trees.
@@ -38,24 +38,28 @@
 
 void ANNbd_shrink::ann_FR_search(ANNdist box_dist)
 {
-												// check dist calc term cond.
+	// check dist calc term cond.
 	if (ANNmaxPtsVisited != 0 && ANNptsVisited > ANNmaxPtsVisited) return;
 
-	ANNdist inner_dist = 0;						// distance to inner box
-	for (int i = 0; i < n_bnds; i++) {			// is query point in the box?
-		if (bnds[i].out(ANNkdFRQ)) {			// outside this bounding side?
-												// add to inner distance
-			inner_dist = (ANNdist) ANN_SUM(inner_dist, bnds[i].dist(ANNkdFRQ));
+	ANNdist inner_dist = 0;                        // distance to inner box
+	for (int i = 0; i < n_bnds; i++)
+	{            // is query point in the box?
+		if (bnds[i].out(ANNkdFRQ))
+		{            // outside this bounding side?
+			// add to inner distance
+			inner_dist = (ANNdist)ANN_SUM(inner_dist, bnds[i].dist(ANNkdFRQ));
 		}
 	}
-	if (inner_dist <= box_dist) {				// if inner box is closer
+	if (inner_dist <= box_dist)
+	{                // if inner box is closer
 		child[ANN_IN]->ann_FR_search(inner_dist);// search inner child first
 		child[ANN_OUT]->ann_FR_search(box_dist);// ...then outer child
 	}
-	else {										// if outer box is closer
+	else
+	{                                        // if outer box is closer
 		child[ANN_OUT]->ann_FR_search(box_dist);// search outer child first
 		child[ANN_IN]->ann_FR_search(inner_dist);// ...then outer child
 	}
-	ANN_FLOP(3*n_bnds)							// increment floating ops
-	ANN_SHR(1)									// one more shrinking node
+	ANN_FLOP(3 * n_bnds)                            // increment floating ops
+	ANN_SHR(1)                                    // one more shrinking node
 }
